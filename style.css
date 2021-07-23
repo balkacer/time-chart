@@ -31,7 +31,6 @@ html, body {
 }
 
 .item-text {
-    color: cornsilk;
     font-size: .7rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -46,33 +45,31 @@ html, body {
 #chart::-webkit-scrollbar {
     width: 2px;
     height: 2px;
-  }
-  #chart::-webkit-scrollbar-button {
-    width: 0px;
-    height: 0px;
-  }
-  #chart::-webkit-scrollbar-thumb {
-    background: #e1e1e1;
-    border: 0px none #ffffff;
-    border-radius: 50px;
-  }
-  #chart::-webkit-scrollbar-thumb:hover {
-    background: #ffffff;
-  }
-  #chart::-webkit-scrollbar-thumb:active {
-    background: #000000;
-  }
-  #chart::-webkit-scrollbar-track {
-    background: #666666;
-    border: 0px none #ffffff;
-    border-radius: 50px;
-  }
-  #chart::-webkit-scrollbar-track:hover {
-    background: #666666;
-  }
-  #chart::-webkit-scrollbar-track:active {
-    background: #333333;
-  }
-  #chart::-webkit-scrollbar-corner {
+}
+
+#chart::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
+
+#chart::-webkit-scrollbar-thumb {
+    background: rgb(101, 190, 109);
+    border: 0;
+}
+
+#chart::-webkit-scrollbar-thumb:hover {
+    background: rgb(142, 243, 150);
+}
+
+#chart::-webkit-scrollbar-thumb:active {
+    background: rgb(0, 128, 11);
+}
+
+#chart::-webkit-scrollbar-track {
+    background: rgb(222, 253, 201);
+    border: 0;
+}
+
+#chart::-webkit-scrollbar-corner {
     background: transparent;
-  }
+}
