@@ -1,4 +1,4 @@
-const times = [[1,5,8],[0,17,30], [0, 58, 32],[0,32,0],[0,30,0]];
+const times = [[1,5,8],[0,17,30], [0, 58, 32],[0,32,0],[0,30,0],[0,45,30]];
 
 const timeChart = (times, size, unit) => {
     const barValues = [];
@@ -61,7 +61,7 @@ obj.bars.forEach(bar => {
 
 const totalTime = document.createElement('span');
 totalTime.id = 'total-time';
-totalTime.innerHTML = total + 'm';
+totalTime.innerHTML = total + ' min';
 
 body.appendChild(chart);
 body.appendChild(totalTime);
