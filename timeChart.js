@@ -1,12 +1,14 @@
-const times = [[1,5,8],[0,17,30], [0, 58, 32],[0,32,0],[0,30,0],[0,45,30]];
-
+const times = [[1, 0, 2], [0, 25, 30], [0, 50, 25], [0, 30, 30]]; // total time is (2h 46m 27s)
 const timeChart = (times, size, unit) => {
     const barValues = [];
+    const timeValues = [];
 
     times.forEach(time => {
         const [h, m, s] = time;
-        const timeValue = m + (h * 60) + (s / 60);
-        barValues.push(timeValue)
+        const barValue = m + (h * 60) + (s / 60);
+        const timeValue = (h != 0 ? h + (m != 0 || s != 0 ? 'h ' : 'h') : '') + (m != 0 ? m + (s != 0 ? 'm ' : 'm') : '') + (s != 0 ? s + 's' : '')
+        barValues.push(barValue);
+        timeValues.push(timeValue);
     });
 
     const moreBiggerBar = Math.max(...barValues);
@@ -16,13 +18,13 @@ const timeChart = (times, size, unit) => {
     const maxBarsHeight = containerHeight * 0.95;
 
     const barSizes = [];
-    
-    barValues.forEach((time = []) => {
+
+    barValues.forEach((time = [], index) => {
         // (( 120 / 10 ) * (( 100 / 120 ) * 5)) = 50
         const relativePersent = ((maxBarsHeight / moreBiggerBar) * ((100 / maxBarsHeight) * time));
         const barHeight = (relativePersent / 100) * maxBarsHeight;
         const barWidth = containerWidth / times.length;
-        barSizes.push({ time: parseInt(time.toString()) + ' min', height: barHeight + unit, width: barWidth + unit});
+        barSizes.push({ time, strTime: timeValues[index], height: barHeight + unit, width: barWidth + unit });
     });
 
     return {
@@ -36,7 +38,7 @@ const timeChart = (times, size, unit) => {
 
 const unit = 'px';
 
-var obj = timeChart(times , [120, 310], unit);
+var obj = timeChart(times, [120, 310], unit);
 
 const body = document.querySelector('body');
 
@@ -52,16 +54,27 @@ obj.bars.forEach(bar => {
     barElement.classList.add('chart-item');
     barElement.style.width = bar.width;
     barElement.style.height = bar.height;
-    barElement.innerHTML = bar.time;
+    barElement.innerHTML = bar.strTime;
 
     chart.appendChild(barElement);
 
-    total += parseInt(bar.time.replace(unit, ''));
+    total += bar.time;
 });
 
 const totalTime = document.createElement('span');
 totalTime.id = 'total-time';
-totalTime.innerHTML = total + ' min';
+
+console.log(total);
+
+const h = parseInt(total / 60);
+const m = parseInt(((total / 60) - h ) * 60);
+const s = Math.round(((((total / 60) - h ) * 60) - m) * 60);
+
+console.log(((((total / 60) - h ) * 60) - m) * 60);
+
+const totalTimeValue = (h != 0 ? h + (m != 0 || s != 0 ? 'h ' : 'h') : '') + (m != 0 ? m + (s != 0 ? 'm ' : 'm') : '') + (s != 0 ? s + 's' : '')
+
+totalTime.innerHTML = totalTimeValue;
 
 body.appendChild(chart);
 body.appendChild(totalTime);
