@@ -1,4 +1,8 @@
-const times = [[1, 0, 2], [0, 25, 30], [0, 50, 25], [0, 30, 30]]; // total time is (2h 46m 27s)
+const times = [[0, 25, 30], [10, 25, 30], [0, 50, 25], [0, 30, 30], [1, 0, 2], [0, 25, 30], [0, 50, 25], [0, 30, 30]];
+const maxBarsPercent = 0.9;
+const maxBarsQuantity = 4.2;
+const unit = 'px';
+
 const timeChart = (times, size, unit) => {
     const barValues = [];
     const timeValues = [];
@@ -15,7 +19,7 @@ const timeChart = (times, size, unit) => {
 
     const containerHeight = size[0];
     const containerWidth = size[1];
-    const maxBarsHeight = containerHeight * 0.95;
+    const maxBarsHeight = containerHeight * maxBarsPercent;
 
     const barSizes = [];
 
@@ -36,8 +40,6 @@ const timeChart = (times, size, unit) => {
     }
 }
 
-const unit = 'px';
-
 var obj = timeChart(times, [120, 310], unit);
 
 const body = document.querySelector('body');
@@ -45,6 +47,8 @@ const body = document.querySelector('body');
 const chart = document.createElement('div');
 chart.id = 'chart'
 chart.style.width = obj.container.width;
+chart.style.maxWidth = obj.container.width;
+chart.style.minWidth = obj.container.width;
 chart.style.height = obj.container.height;
 
 let total = 0;
@@ -52,10 +56,25 @@ let total = 0;
 obj.bars.forEach(bar => {
     const barElement = document.createElement('div');
     barElement.classList.add('chart-item');
+    
+    const containerW = parseInt(obj.container.width.replace(unit, ''));
+    const containerH = parseInt(obj.container.height.replace(unit, ''));
+
+    barElement.style.minWidth = (containerW / maxBarsQuantity) + unit;
     barElement.style.width = bar.width;
     barElement.style.height = bar.height;
-    barElement.innerHTML = bar.strTime;
 
+    const barH = parseFloat(bar.height.replace(unit, ''));
+
+    const barText = document.createElement('span');
+    barText.innerHTML = bar.strTime;
+    const barTextH = containerH * 0.1;
+    barText.classList.add('item-text');
+    barText.style.height = barTextH + unit;
+    barText.style.marginBottom = (barTextH > barH ? 20 + barH: 0) + unit;
+    barText.style.color = (barTextH > barH ? 'rgb(0, 128, 11)' : 'rgb(215, 255, 219)');
+
+    barElement.appendChild(barText);
     chart.appendChild(barElement);
 
     total += bar.time;
@@ -64,13 +83,9 @@ obj.bars.forEach(bar => {
 const totalTime = document.createElement('span');
 totalTime.id = 'total-time';
 
-console.log(total);
-
 const h = parseInt(total / 60);
 const m = parseInt(((total / 60) - h ) * 60);
 const s = Math.round(((((total / 60) - h ) * 60) - m) * 60);
-
-console.log(((((total / 60) - h ) * 60) - m) * 60);
 
 const totalTimeValue = (h != 0 ? h + (m != 0 || s != 0 ? 'h ' : 'h') : '') + (m != 0 ? m + (s != 0 ? 'm ' : 'm') : '') + (s != 0 ? s + 's' : '')
 

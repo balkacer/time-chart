@@ -17,7 +17,8 @@ html, body {
     align-items: flex-end;
     padding: 0;
     margin: 0;
-    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .chart-item {
@@ -27,6 +28,9 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.item-text {
     color: cornsilk;
     font-size: .7rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,3 +42,37 @@ html, body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
+
+#chart::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+  }
+  #chart::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  #chart::-webkit-scrollbar-thumb {
+    background: #e1e1e1;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  #chart::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+  }
+  #chart::-webkit-scrollbar-thumb:active {
+    background: #000000;
+  }
+  #chart::-webkit-scrollbar-track {
+    background: #666666;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  #chart::-webkit-scrollbar-track:hover {
+    background: #666666;
+  }
+  #chart::-webkit-scrollbar-track:active {
+    background: #333333;
+  }
+  #chart::-webkit-scrollbar-corner {
+    background: transparent;
+  }
