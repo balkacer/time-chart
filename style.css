@@ -53,16 +53,16 @@ html, body {
 }
 
 #chart::-webkit-scrollbar-thumb {
-    background: rgb(101, 190, 109);
+    background: rgb(0, 128, 11);
     border: 0;
 }
 
 #chart::-webkit-scrollbar-thumb:hover {
-    background: rgb(142, 243, 150);
+    background: rgb(101, 190, 109);
 }
 
 #chart::-webkit-scrollbar-thumb:active {
-    background: rgb(0, 128, 11);
+    background: rgb(142, 243, 150);
 }
 
 #chart::-webkit-scrollbar-track {
