@@ -1,6 +1,6 @@
-const times = [[0, 25, 30], [10, 25, 30], [0, 50, 25], [0, 30, 30], [1, 0, 2], [0, 2, 30], [0, 50, 25], [0, 30, 30]];
+const times = [[0, 25, 30], [0, 5, 30], [0, 50, 25], [5, 30, 30], [1, 0, 2], [0, 2, 30], [0, 50, 25], [0, 30, 30]];
 const maxBarsPercent = 0.9;
-const maxBarsQuantity = 4.2;
+const maxBarsQuantity = 4.5;
 const unit = 'px';
 
 const timeChart = (times, size, unit) => {
@@ -40,7 +40,7 @@ const timeChart = (times, size, unit) => {
     }
 }
 
-var obj = timeChart(times, [120, 310], unit);
+var obj = timeChart(times, [400, 800], unit);
 
 const body = document.querySelector('body');
 
@@ -54,24 +54,23 @@ chart.style.height = obj.container.height;
 let total = 0;
 
 obj.bars.forEach(bar => {
-    const barElement = document.createElement('div');
-    barElement.classList.add('chart-item');
-    
     const containerW = parseInt(obj.container.width.replace(unit, ''));
     const containerH = parseInt(obj.container.height.replace(unit, ''));
-
-    barElement.style.minWidth = (containerW / maxBarsQuantity) + unit;
+    const barH = parseFloat(bar.height.replace(unit, ''));
+    const barTextH = 20;
+    
+    const barElement = document.createElement('div');
+    barElement.classList.add('chart-item');
+    barElement.style.minWidth = ((containerW / maxBarsQuantity) >= 70 ? (containerW / maxBarsQuantity) : 70) + unit;
     barElement.style.width = bar.width;
     barElement.style.height = bar.height;
-
-    const barH = parseFloat(bar.height.replace(unit, ''));
+    barElement.style.alignContent = barTextH > barH ? 'start' : 'center';
 
     const barText = document.createElement('span');
     barText.innerHTML = bar.strTime;
-    const barTextH = containerH * 0.1;
     barText.classList.add('item-text');
     barText.style.height = barTextH + unit;
-    barText.style.marginBottom = (barTextH > barH ? 20 + barH: 0) + unit;
+    barText.style.marginTop = (barTextH > barH ? -(barH + 20) : 3) + unit;
     barText.style.color = (barTextH > barH ? 'rgb(0, 128, 11)' : 'rgb(215, 255, 219)');
 
     barElement.appendChild(barText);
